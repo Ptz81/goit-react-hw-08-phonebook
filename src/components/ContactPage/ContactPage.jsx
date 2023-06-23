@@ -1,0 +1,20 @@
+import { ContactForm } from "components/ContactForm/ContactForm";
+import ContactList from "components/ContactList/ContactList";
+import Filter from "components/Filter/Filter";
+import Section from "components/Section/Section";
+
+export const ContactPage = () => {
+  return (
+    <div className=''>
+      <>
+        <Section title="Phonebook">
+          <ContactForm />
+        </Section>
+        <Section title="Contacts">
+          <Filter />
+          <ContactList />
+        </Section>
+      </>
+    </div>
+  );
+}
