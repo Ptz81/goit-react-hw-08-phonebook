@@ -1,17 +1,27 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { LogIn } from 'redux/auth/auth'
+import { toast } from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { loginThunk } from 'redux/auth/thunk'
 
 export const LoginPage = () => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	const handleChange = ({ target: { value, name } }) => {
 		name === 'email'? setEmail(value):setPassword(value)
 	}
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
-LogIn({password, email})
+		try {
+			await dispatch(loginThunk({ email, password })).unwrap()
+			navigate('/')
+			toast.success('Welcome')
+		} catch (error) {
+			toast.error('Error Login')
+		}
 	}
 
   return (
@@ -48,7 +58,6 @@ LogIn({password, email})
 						className='form-control'
 						id='exampleInputPassword1'
 						onChange={handleChange}
-						// onBlur={validator}
 						value={password}
 					/>
 				</div>
@@ -58,7 +67,7 @@ LogIn({password, email})
 					disabled={!email||!password
 					}
 				>
-					Log In
+					Login
         </button>
         <NavLink to='/signUp'>Sign Up</NavLink>
 			</form>

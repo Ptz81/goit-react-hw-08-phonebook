@@ -1,7 +1,13 @@
 import { createContacts, deleteContacts, fetchContacts } from "./api";
-import { initialState } from "./initial";
+
 import { handleFulfilled, handleFulfilledCreate, handleFulfilledDelete, handleFulfilledGet, handlePending, handleRejected, thunkFunction } from "./service";
 const { createSlice, isAnyOf } = require("@reduxjs/toolkit");
+
+const initialState = {
+      items: [],
+      isLoading: false,
+      error: null
+}
 
 export const contactsSlice = createSlice({
   name: 'contacts',

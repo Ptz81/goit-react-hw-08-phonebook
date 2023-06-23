@@ -1,39 +1,50 @@
 import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { SignUp } from 'redux/auth/auth'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { toast } from 'react-hot-toast'
+import { signup } from 'redux/auth/auth'
 
 export const SignUpPage = () => {
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
+	const [password, setPassword] = useState('')
+	const [email, setEmail] = useState('')
+	const [name, setName] = useState('')
 
-  const navigate = useNavigate()
+	const navigate = useNavigate()
 
-	const handleChange = ({ target: { value, name } }) => {
-    name === 'email' ? setEmail(value):name === 'password'? setPassword(value):setName(value)
-	}
 	const handleSubmit = (e) => {
 		e.preventDefault()
-    SignUp({
-      name,
-      email,
-      password
-    }).then(()=>navigate('/login'))
+		signup({
+			name,
+			email,
+			password,
+			avatar: 'https://api.lorem.space/image/face?w=640&h=480&r=867',
+		}).then(() => {
+			toast.success('Sign Up successfully!!')
+			navigate('/login')
+		})
 	}
 
-  return (
-    <div className='container'>
-      <h2 className='title'>Sign Up Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className='mb-3'>
-					<label htmlFor='exampleInputEmail1' className='form-label'>
-						Name
+	const handleChange = ({ target: { value, name } }) => {
+		name === 'email'
+			? setEmail(value)
+			: name === 'password'
+			? setPassword(value)
+			: setName(value)
+	}
+
+	return (
+		<div className='container p-4'>
+			<h2>Sign Up</h2>
+			<form onSubmit={handleSubmit}>
+				<div className='mb-3'>
+					<label htmlFor='exampleInputName' className='form-label'>
+						Name:
 					</label>
 					<input
 						name='name'
-						type='name'
+						type='text'
 						className='form-control'
-						id='exampleInputEmail1'
+						id='exampleInputName'
 						aria-describedby='emailHelp'
 						onChange={handleChange}
 						value={name}
@@ -74,17 +85,15 @@ export const SignUpPage = () => {
 				</div>
 				<button
 					type='submit'
-					className='btn btn-primary'
-					disabled={!email||!password
-					}
-        >
-          Sign Up
-        </button>
-        <NavLink to='/login'>Log In</NavLink>
+					className='btn btn-primary me-3'
+					disabled={!email || !password}
+				>
+					Sign Up
+				</button>
+				<Link to='/login'>Log In</Link>
 			</form>
-      </div>
-
-		)
+		</div>
+	)
 }
 
 

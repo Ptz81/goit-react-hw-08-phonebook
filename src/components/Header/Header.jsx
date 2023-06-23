@@ -1,7 +1,16 @@
+import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useNavigate } from "react-router-dom"
+import { dellToken } from "redux/auth/auth"
+import { logOut } from "redux/auth/authSlice"
 
 export const Header = ({ open }) => {
-  const navigate = useNavigate()
+  const { access_token: isAuth, profile } = useSelector((state) => state.auth)
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
+	const handleLogOut = () => {
+		dispatch(logOut())
+		dellToken()
+	}
   return (
     <nav className="nav-bar">
       <div className="container">
@@ -16,8 +25,18 @@ export const Header = ({ open }) => {
             Options
           </NavLink>
         </div>
-        <button className="btn" onClick={open}>Open Modal</button>
-        <button className="btn" onClick={()=>navigate('/login')}>Log In</button>
+       {profile && <h4 className='text-white'>{profile.name}</h4>}
+				<button className='btn btn-outline-success' onClick={open}>
+					Open Modal
+				</button>
+				<button
+					className='btn btn-outline-success'
+					onClick={() => {
+						isAuth ? handleLogOut() : navigate('/login')
+					}}
+				>
+					{isAuth ? 'Logout' : 'Login'}
+				</button>
       </div>
   </nav>
 )

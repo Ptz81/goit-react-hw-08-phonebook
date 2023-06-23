@@ -13,6 +13,7 @@ import ContactList from './ContactList/ContactList';
 export const App = () => {
    const dispatch = useDispatch();
 
+  //отримання поточного стану зі store
   useEffect(() => {
     dispatch(current());
   }, [dispatch]);
@@ -44,7 +45,7 @@ export const App = () => {
 					/>
 				</Route>
         <Route
-          path='signUp'
+          path='signup'
           element={<SignUpPage />}
 
           />

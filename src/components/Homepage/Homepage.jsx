@@ -1,5 +1,10 @@
 
 export const Homepage = () => {
-return (<h2>Homepage</h2>)
+  return (
+    <div>
+      <h2>Welcome to contact book</h2>
+    </div>
+
+  )
 
 }
