@@ -1,63 +1,57 @@
-import React, { Suspense, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { SignUpPage } from './SignUpPage/SignUpPage';
-import { LoginPage } from './LoginPage/LoginPage';
-import Layout from './Layout/Layout';
-import { Homepage } from './Homepage/Homepage';
-import { Toaster } from 'react-hot-toast';
+import { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
-import { current } from '@reduxjs/toolkit';
-import { ContactPage } from './ContactPage/ContactPage';
-import ContactList from './ContactList/ContactList';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { PrivateRoute } from './PrivateRoute.js';
+import { RestrictedRoute } from './RestrictedRoute';
+import { refreshUser } from 'redux/auth/operations';
+import { useAuth } from 'hooks';
+
+const HomePage = lazy(() => import('../components/pages/Home'));
+const RegisterPage = lazy(() => import('../components/pages/Register'));
+const LoginPage = lazy(() => import('../components/pages/Login'));
+const TasksPage = lazy(() => import('../components/pages/Tasks'));
+const ContactPage = lazy(() => import('../components/pages/Contacts'));
 
 export const App = () => {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
 
-  //отримання поточного стану зі store
   useEffect(() => {
-    dispatch(current());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <>
-      <Routes>
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
         <Route
-          path='/'
-          element={<Layout />}
-        >
-          <Route
-            index
-            element={<Homepage />}
-
-            />
-          <Route
-            path='contacts'
-            element={<ContactPage />}
-
-            />
-          <Route
-						path='contacts/:id'
-						element={
-							<Suspense>
-								<ContactList />
-							</Suspense>
-						}
-					/>
-				</Route>
+          path="/register"
+          element={
+            <RestrictedRoute redirectTo="/tasks" component={<RegisterPage />} />
+          }
+        />
         <Route
-          path='signup'
-          element={<SignUpPage />}
-
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/tasks" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <PrivateRoute redirectTo="/login" component={<TasksPage />} />
+          }
           />
-        <Route path='login'
-          element={<LoginPage />}
-
-          />
-      </Routes>
-      <Toaster
-        position="top-center"
-        reverseOrder={false} />
-    </>
-
-  )
-}
+           <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactPage />} />
+          }
+        />
+      </Route>
+    </Routes>
+  );
+};
