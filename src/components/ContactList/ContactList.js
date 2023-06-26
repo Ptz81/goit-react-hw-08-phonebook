@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-
+import css from './ContactList.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { filteredContacts, getError, getIsLoading} from "../../redux/contacts/selectors";
-import Loader from "../../components/Loader/Loader";
-import { deleteContacts, fetchContacts } from "../../redux/contacts/api";
+import { deleteContacts, fetchContacts } from "redux/contacts/api";
+import Loader from "components/Loader/Loader";
+import { filteredContacts, getError, getIsLoading } from "redux/contacts/selectors";
+
 
 const ContactList = () => {
   const contactItems = useSelector(filteredContacts);
@@ -19,15 +20,15 @@ const ContactList = () => {
     <>
       {error && <h2>{error}</h2>}
       {isLoading && <Loader/>}
-       {contactItems && <ul className='contact_list'>
+       {contactItems && <ul className={css.list}>
         {contactItems.map((contact) => {
           return (
-            <li className="contact_item" key={contact.id}>
+            <li key={contact.id}>
               <p>
-                {contact.name}: {contact.phone}
+                {contact.name}: {contact.number}
               </p>
               <button
-                className="btn"
+                className={css.button}
                 onClick={() => dispatch(deleteContacts(contact.id))}
               >
                 Delete

@@ -10,10 +10,11 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { tasksReducer } from './tasks/slice';
+// import { tasksReducer } from './tasks/slice';
 import { authReducer } from './auth/slice';
 import { contactsReducer } from './contacts/ContactsSlice';
 import { filterReducer } from './filter/filterSlice';
+import { tasksReducer } from './tasks/slice';
 
 const middleware = [
   ...getDefaultMiddleware({

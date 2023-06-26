@@ -1,5 +1,6 @@
-import { createContacts, deleteContacts, fetchContacts } from "./api";
+// import { createContacts, deleteContacts, fetchContacts } from "./api";
 
+import { createContacts, deleteContacts, fetchContacts } from "./api";
 import { handleFulfilled, handleFulfilledCreate, handleFulfilledDelete, handleFulfilledGet, handlePending, handleRejected, thunkFunction } from "./service";
 const { createSlice, isAnyOf } = require("@reduxjs/toolkit");
 
