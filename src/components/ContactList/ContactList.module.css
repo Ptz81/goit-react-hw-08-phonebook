@@ -29,3 +29,10 @@ border: 1px solid #3f41b5;
   grid-template-columns: 1fr;
   grid-gap: 2px;
 }
+
+.contact{
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(83, 32, 107, 0.815);
+}

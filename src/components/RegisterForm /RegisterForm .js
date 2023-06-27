@@ -30,7 +30,7 @@ export const RegisterForm = () => {
       </label>
       <label className={css.label}>
         Password
-        <input type="password" name="password" />
+        <input type="password" name="password" title="Enter at least 3 figures and 3 letters"/>
       </label>
       <button className={css.button} type="submit">Register</button>
     </form>
