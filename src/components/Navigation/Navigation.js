@@ -10,10 +10,10 @@ export const Navigation = () => {
       <NavLink className={css.link} to="/">
         Home
       </NavLink>
-      {isLoggedIn && (
+      {/* {isLoggedIn && (
         <NavLink className={css.link} to="/tasks">
           Tasks
-        </NavLink>)}
+        </NavLink>)} */}
         {isLoggedIn && (
         <NavLink className={css.link} to='/contacts'>
             Contacts
