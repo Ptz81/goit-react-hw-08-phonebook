@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[115],{3115:function(e,t,a){a.r(t),a.d(t,{default:function(){return o}});var n="pages_container__uzdne",c="pages_title__Li8KL",r=a(3329);function o(){return(0,r.jsx)("div",{className:n,children:(0,r.jsx)("h1",{className:c,children:"Welcome to Contact Book page!"})})}}}]);
-//# sourceMappingURL=115.152e8a93.chunk.js.map
