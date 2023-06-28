@@ -12,3 +12,18 @@
 .link:hover{
   color: #3f41b5;
 }
+ @media screen and (max-width: 560px) {
+   .nav {
+    display: flex;
+    flex-direction: column;
+     font-size: 14px;
+
+   }
+     .link {
+
+       text-decoration: none;
+       padding: 6px;
+       font-weight: 500;
+       color: #2a363b;
+     }
+ }

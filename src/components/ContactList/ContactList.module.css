@@ -36,3 +36,9 @@ border: 1px solid #3f41b5;
   font-weight: 500;
   color: rgba(83, 32, 107, 0.815);
 }
+@media screen and (max-width: 560px) {
+
+  .list {
+margin-bottom: 30px;
+    }
+}
